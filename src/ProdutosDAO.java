@@ -43,7 +43,7 @@ public class ProdutosDAO {
     }
 
     public ArrayList<ProdutosDTO> listarProdutos() {
-        
+
         String sql = "SELECT * FROM produtos";
 
         try {
@@ -67,8 +67,24 @@ public class ProdutosDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar produtos: " + e.getMessage());
         }
-        
+
         return listagem;
+    }
+
+    public void venderProduto(int id) {
+
+        String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+
+        try {
+            conn = new conectaDAO().connectDB();
+            prep = conn.prepareStatement(sql);
+            prep.setInt(1, id);
+
+            prep.executeUpdate();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao vender produto: " + e.getMessage());
+        }
     }
 
 }
